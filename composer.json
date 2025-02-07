@@ -1,0 +1,20 @@
+{
+    "name": "wahyulingu/piuu",
+    "description": "PHP Imitation User Utility - A package to simulate humanized interactions (typing, clicking, delays) in a natural way.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Wahyu Lingu",
+            "email": "wahyulingu@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "WahyuLingu\\Piuu\\": "src/"
+        }
+    },
+    "require": {
+        "php": "8.4"
+    }
+}
