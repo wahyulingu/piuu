@@ -44,6 +44,8 @@ class TypingSimulator
 
     protected TypoGenerator $typoGenerator;
 
+    protected bool $stopTyping = false;
+
     /**
      * Konstruktor untuk kelas TypingSimulator.
      *
@@ -156,6 +158,9 @@ class TypingSimulator
         $chars = str_split($text);
 
         foreach ($chars as $char) {
+            if ($this->shouldStopTyping()) {
+                break;
+            }
             // Jika terdapat koreksi yang tertunda, tambahkan counter dan periksa apakah sudah saatnya koreksi.
             if ($pendingCorrection !== null) {
                 $pendingCorrection['counter']++;
@@ -346,6 +351,9 @@ class TypingSimulator
     {
         $chars = str_split($text);
         foreach ($chars as $char) {
+            if ($this->shouldStopTyping()) {
+                break;
+            }
             // Kirimkan karakter secara langsung tanpa kesalahan.
             $this->executor->execute(function () use ($sendKeyAction, $char) {
                 $sendKeyAction($char);
@@ -353,10 +361,29 @@ class TypingSimulator
 
             // Sisipkan delay acak untuk meniru kecepatan pengetikan manusia.
             if (mt_rand(0, 99) < 10) {
+                // Periksa kondisi untuk menghentikan pengetikan.
                 $this->delayHelper->delay(150000, 300000, $callback);
             } else {
                 $this->delayHelper->delay(50000, 150000, $callback);
             }
         }
+    }
+
+    /**
+     * Menghentikan proses pengetikan.
+     */
+    public function stopTyping(): void
+    {
+        $this->stopTyping = true;
+    }
+
+    /**
+     * Mengecek apakah proses pengetikan harus dihentikan.
+     *
+     * @return bool True jika pengetikan harus dihentikan, false jika tidak.
+     */
+    protected function shouldStopTyping(): bool
+    {
+        return $this->stopTyping;
     }
 }

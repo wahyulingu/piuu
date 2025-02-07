@@ -45,6 +45,16 @@ class HumanizedActions
     }
 
     /**
+     * Facade untuk menghentikan pengetikan humanized.
+     *
+     * @param  callable|null  $callback  Optional callback untuk logging.
+     */
+    public function stopTyping(): void
+    {
+        $this->typingSimulator->stopTyping();
+    }
+
+    /**
      * Facade untuk menyisipkan delay humanized secara mandiri.
      *
      * @param  int  $minDelay  Minimum delay (mikrodetik).
