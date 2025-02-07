@@ -22,6 +22,18 @@ class HumanizedActions
     }
 
     /**
+     * Facade untuk mengirimkan teks dengan pengetikan humanized tanpa error.
+     *
+     * @param  string  $text  Teks yang akan diketik.
+     * @param  callable  $sendKeyAction  Callback untuk mengirim key.
+     * @param  callable|null  $callback  Optional callback untuk logging.
+     */
+    public function sendKeysHumanizedWithoutErrors(string $text, callable $sendKeyAction, ?callable $callback = null): void
+    {
+        $this->typingSimulator->sendKeysHumanizedWithoutErrors($text, $sendKeyAction, $callback);
+    }
+
+    /**
      * Facade untuk melakukan klik dengan delay humanized.
      *
      * @param  callable  $clickAction  Callback untuk aksi klik.
